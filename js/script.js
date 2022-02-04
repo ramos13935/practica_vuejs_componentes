@@ -29,7 +29,7 @@ var server_data = {
                 href : "https://en.wikipedia.org/wiki/Game_of_Thrones",
                 data : [
 		                {name : "name", value : "Game of Thrones", prompt : "Name"},
-                    {name : "description", value : "Game of Thrones is an American fantasy drama television series created by David Benioff and D. B. Weiss. It is an adaptation of A Song of Ice and Fire, George R. R. Martin's series of fantasy novels, the first of which is A Game of Thrones. It is filmed in Belfast and elsewhere in the United Kingdom, Canada, Croatia, Iceland, Malta, Morocco, Spain, and the United States. The series premiered on HBO in the United States on April 17, 2011, and its seventh season ended on August 27, 2017. The series will conclude with its eighth season premiering in 2019.", prompt : "Description"},
+                        {name : "description", value : "Game of Thrones is an American fantasy drama television series created by David Benioff and D. B. Weiss. It is an adaptation of A Song of Ice and Fire, George R. R. Martin's series of fantasy novels, the first of which is A Game of Thrones. It is filmed in Belfast and elsewhere in the United Kingdom, Canada, Croatia, Iceland, Malta, Morocco, Spain, and the United States. The series premiered on HBO in the United States on April 17, 2011, and its seventh season ended on August 27, 2017. The series will conclude with its eighth season premiering in 2019.", prompt : "Description"},
 		                {name : "director", value : "Alan Taylor et al", prompt : "Director"},
 		                {name : "datePublished", value : "2011-04-17", prompt : "Release Date"}
                 ]
@@ -41,12 +41,13 @@ var server_data = {
 
 // TODO: Componente edit-form
 Vue.component('edit-form', {
-
+    
 })
 
 // TODO: Componente item-data
 Vue.component('item-data', {
-
+    props:["itemParametro"],
+    template: "#itemData"
 })
 
 // Aplicación VueJS
@@ -55,6 +56,11 @@ var app = new Vue({
     el: '#app',
     data: {
         col: server_data
+    },
+    methods: {
+        toggleEditFormVisibility: function(event){
+
+        }
     }
 });
 
