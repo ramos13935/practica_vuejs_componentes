@@ -29,8 +29,9 @@
             </div>
         </div>
         <div class="card-group">
-            <div v-for="item in col.collection.items">
-                <div is="item-data" v-bind:itemParametro="item"></div>
+            <div v-for="(item,index) in col.collection.items" :key="index" class="card">
+                <item-data v-bind:param="item" :indice="index" v-if="!pel_edi.includes(index)"> </item-data>
+                <div is="edit-form" v-bind:param="item" :indice="index" v-else></div>
             </div>
         </div>
     </div>
@@ -39,32 +40,37 @@
 
     <!-- Plantilla para el componente edit-form -->
     <script type="text/x-template" id="editForm">
-
         <!--
                  TODO: Componente edit-form
             -->
-
+        <div class="card-body">
+                <div v-for="(dat,cont) in param.data">
+                    <h5 class="card-text">{{dat.prompt}}</h5>
+                    <input v-if="cont != 1" type="text" class="card-text" :value="dat.value" :id="dat.name+indice" v-model="dat.value"/>
+                    <textarea v-else :value="dat.value" rows="4" cols="50"  :id="dat.name+indice" v-model="dat.value"></textarea>
+                </div>
+                <br/>
+                <button  v-on:click="closeForm(indice)" class="btn btn-primary">Cerrar</button>
+        </div>
     </script>
 
 
 
     <!-- Plantilla para el componente item-data -->
     <script type="text/x-template" id="itemData">
-        <div class="card">
-            <div class="card-body">
+        <div class="card-body">
                 <dl>
-                    <div v-for="datos in itemParametro">
+                    <div v-for="dat in param.data">
                         <dt>
-                            <h5 class="card-title">{{datos.prompt}}</h5>
+                            <h5 class="card-text">{{dat.prompt}}</h5>
                         </dt>
                         <dd>
-                            <p class="card-text">{{datos.value}}</p>
+                            <p class="card-text">{{dat.value}}</p>
                         </dd>
                     </div>
                 </dl>
-                <!-- <a v-bind:href="itemParametro.href" class="btn btn-primary">Ver</a>
-                <button  v-on:click="toggleEditFormVisibility" class="btn btn-secondary">Editar</button> -->
-            </div>
+                <a v-bind:href="param.href" class="btn btn-primary">Ver</a>
+                <button  v-on:click="toggleEditFormVisibility(indice)" class="btn btn-secondary">Editar</button>
         </div>
         <!--
                  TODO: Componente item-data
@@ -74,7 +80,7 @@
 
 
     <!-- TODO: Cargar librería VueJS y archivo js/script.js -->
-    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./js/script.js"></script>
 </body>
 
